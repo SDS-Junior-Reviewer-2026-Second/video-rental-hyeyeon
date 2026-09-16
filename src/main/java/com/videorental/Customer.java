@@ -23,6 +23,7 @@ class Customer {
 	public String statement() {
 		double totalAmount = 0;
 		int frequentRenterPoints = 0;
+
 		Iterator<Rental> iterator = rentals.iterator();
 		String result = "Rental Record for " + getName() + "\n";
 
@@ -33,11 +34,7 @@ class Customer {
 			frequentRenterPoints++;
 			if (isNewRealseBonus(each)) frequentRenterPoints++;
 
-			result += "\t"
-					+  String.valueOf(thisAmount)
-					+ "(" + each.getMovie().getTitle()
-					+ ")" + "\n";
-
+			result += concatTitleAmount(thisAmount, each.getMovie().getTitle());
 			totalAmount += thisAmount;
 		}
 
@@ -49,6 +46,13 @@ class Customer {
 				+ " frequent renter pointers";
 
 		return result;
+	}
+
+	private String concatTitleAmount(double amount, String title){
+		return "\t"
+				+  String.valueOf(amount)
+				+ "(" + title
+				+ ")" + "\n";
 	}
 
 	private double getRentalAmount(Rental rental){
